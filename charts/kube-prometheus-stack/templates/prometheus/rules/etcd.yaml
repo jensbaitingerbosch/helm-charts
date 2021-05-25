@@ -46,8 +46,8 @@ spec:
 {{- end }}
     - alert: etcdHighNumberOfLeaderChanges
       annotations:
-        message: 'etcd cluster "{{`{{`}} $labels.job {{`}}`}}": instance {{`{{`}} $labels.instance {{`}}`}} has seen {{`{{`}} $value {{`}}`}} leader changes within the last hour.'
-      expr: rate(etcd_server_leader_changes_seen_total{job=~".*etcd.*"}[15m]) > 3
+        message: 'etcd cluster "{{`{{`}} $labels.job {{`}}`}}": instance {{`{{`}} $labels.instance {{`}}`}} has seen {{`{{`}} $value {{`}}`}} leader changes within the last 15 minutes.'
+      expr: increase(etcd_server_leader_changes_seen_total{job=~".*etcd.*"}[15m]) > 3
       for: 15m
       labels:
         severity: warning
